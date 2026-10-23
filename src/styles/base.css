@@ -1,0 +1,287 @@
+/* ---------- Tokens ---------- */
+:root {
+  --navy-950: #01121d;
+  --navy-900: #021b2a;
+  --navy-800: #082a3f;
+  --navy-700: #0f3a55;
+  --cream-50: #fcfaf5;
+  --cream-100: #f6f1e6;
+  --cream-200: #ece4d2;
+  --sand-300: #cfc6ae;
+  --sand-500: #aa9f84;
+  --sand-700: #7a6f55;
+  --ink-900: #0a1e2c;
+  --ink-700: #33444f;
+  --ink-500: #5f6c76;
+
+  --ease: cubic-bezier(0.22, 0.8, 0.24, 1);
+  --radius-s: 0.75rem;
+  --radius-m: 1.25rem;
+  --radius-l: 2rem;
+
+  --pad-x: 4.5rem;
+  --head-h: 4.25rem;
+  --nav-h: 5.5rem;
+  --home-split: 42.7%;
+}
+
+/*
+ * Escala fluida: 1rem = 16px em 1920x1080. Todo o layout e medido em rem, entao
+ * se adapta a qualquer resolucao/proporcao sem perder proporcao entre elementos.
+ */
+html {
+  font-size: clamp(8px, min(0.8333vw, 1.4815vh), 40px);
+}
+@media (orientation: portrait) {
+  html {
+    font-size: clamp(8px, min(1.4815vw, 0.8333vh), 40px);
+  }
+  :root {
+    --pad-x: 3rem;
+    --head-h: 4rem;
+    --nav-h: 5.25rem;
+    --home-split: 0%;
+  }
+}
+
+/* ---------- Reset ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+body {
+  overflow: hidden;
+  background: var(--navy-900);
+  font-family: 'Inter Variable', Inter, system-ui, 'Segoe UI', Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  -webkit-user-select: none;
+  user-select: none;
+  touch-action: manipulation;
+  overscroll-behavior: none;
+}
+h1,
+h2,
+h3,
+p,
+ul,
+dl,
+dd,
+figure {
+  margin: 0;
+  padding: 0;
+}
+ul {
+  list-style: none;
+}
+img {
+  display: block;
+  -webkit-user-drag: none;
+}
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+button:focus-visible {
+  outline: none;
+}
+/* Anel de foco somente quando alguem usa o teclado (Tab); em toque nunca aparece. */
+html.kbd button:focus-visible {
+  outline: 3px solid var(--sand-500);
+  outline-offset: 3px;
+}
+button:disabled {
+  cursor: default;
+}
+
+/* ---------- Temas ---------- */
+.shell[data-tema='dark'] {
+  --bg: var(--navy-900);
+  --fg: #fff;
+  --fg-soft: rgba(255, 255, 255, 0.82);
+  --fg-mute: #9aabb7;
+  --eyebrow: var(--sand-500);
+  --surface: var(--navy-800);
+  --surface-2: var(--navy-700);
+  --line: rgba(255, 255, 255, 0.16);
+  --head-num: rgba(255, 255, 255, 0.62);
+}
+.shell[data-tema='light'] {
+  --bg: var(--cream-100);
+  --fg: var(--ink-900);
+  --fg-soft: var(--ink-700);
+  --fg-mute: var(--ink-500);
+  --eyebrow: var(--sand-700);
+  --surface: #fff;
+  --surface-2: var(--cream-50);
+  --line: rgba(10, 30, 44, 0.14);
+  --head-num: var(--sand-700);
+}
+
+/* ---------- Shell ---------- */
+.shell {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  color: var(--fg);
+  transition: background-color 0.4s var(--ease), color 0.4s var(--ease);
+}
+.shell-head {
+  position: absolute;
+  inset: 0 0 auto 0;
+  z-index: 3;
+  height: var(--head-h);
+  padding: 0 var(--pad-x);
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  pointer-events: none;
+}
+.head-num {
+  color: var(--head-num);
+  font-variant-numeric: tabular-nums;
+  font-weight: 800;
+}
+.head-title {
+  text-transform: uppercase;
+}
+.shell-head .brand-mini {
+  margin-left: auto;
+}
+.shell[data-home='true'] .shell-head {
+  color: #fff;
+}
+.shell[data-home='true'] .shell-head .head-num {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.shell-body {
+  flex: 1;
+  min-height: 0;
+  position: relative;
+  padding-top: var(--head-h);
+}
+.shell[data-home='true'] .shell-body {
+  padding-top: 0;
+}
+/* Apenas opacidade: a Maquete mede a posicao do palco para encaixar a view nativa. */
+.page-wrap {
+  height: 100%;
+  animation: page-in 0.35s var(--ease) both;
+}
+@keyframes page-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ---------- Navegacao inferior ---------- */
+.nav {
+  flex: none;
+  height: var(--nav-h);
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 0.25rem;
+  padding: 0 calc(var(--pad-x) - 1.25rem);
+  border-top: 1px solid var(--line);
+  transition: border-color 0.4s var(--ease);
+}
+.shell[data-home='true'] .nav {
+  position: relative;
+  z-index: 2;
+  margin-left: var(--home-split);
+  padding-left: 1.5rem;
+}
+/* Na Home a foto desce ate a borda e a navegacao fica so sobre o painel direito. */
+.shell[data-home='true'] .shell-body {
+  margin-bottom: calc(var(--nav-h) * -1);
+  z-index: 1;
+}
+.nav-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.2rem;
+  border-radius: 0 0 var(--radius-m) var(--radius-m);
+  color: var(--fg-mute);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.88rem;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: color 0.2s, background-color 0.2s;
+}
+.nav-num {
+  font-size: 0.75rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  opacity: 0.75;
+}
+.nav-item:active {
+  background: color-mix(in srgb, var(--fg) 12%, transparent);
+}
+.nav-item.is-active {
+  color: var(--fg);
+  font-weight: 800;
+  background: color-mix(in srgb, var(--fg) 6%, transparent);
+}
+.nav-item.is-active .nav-num {
+  opacity: 1;
+  color: var(--sand-500);
+}
+.nav-item.is-active::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: 18%;
+  right: 18%;
+  height: 3px;
+  border-radius: 0 0 3px 3px;
+  background: var(--sand-500);
+}
+
+/* ---------- Tipografia ---------- */
+h1 {
+  font-weight: 760;
+  letter-spacing: -0.025em;
+  line-height: 1.08;
+}
+.eyebrow {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--eyebrow);
+}
+.sub {
+  font-size: 1.2rem;
+  color: var(--fg-soft);
+}
+.muted {
+  color: var(--fg-mute);
+}
