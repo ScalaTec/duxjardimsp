@@ -2,13 +2,17 @@
 
 Aplicacao Windows para o totem interativo do empreendimento DUX Jardim Sao Paulo.
 
-## Objetivos
+## Requisitos principais
 
+- Funcionar visualmente e operacionalmente igual ao prototipo aprovado no Figma.
 - Operar em Windows em modo kiosk/fullscreen.
 - Funcionar offline para todo o conteudo principal.
-- Usar internet apenas para a Maquete Virtual.
+- Preparar a Maquete Virtual em segundo plano quando houver internet, para que esteja pronta ao clicar.
+- Nunca travar a aplicacao nem exibir erros tecnicos caso a Maquete falhe ou fique sem conexao.
+- Exibir fallback visual DUX com opcoes de tentar novamente e voltar para a apresentacao.
 - Ser otimizado para Intel Core i5 de 6a geracao.
-- Reproduzir o layout e a navegacao aprovados no Figma.
+
+Consulte tambem: `docs/REQUISITOS-PRINCIPAIS.md`.
 
 ## Stack
 
@@ -51,4 +55,4 @@ O hardware-alvo e um Intel Core i5 de 6a geracao. O projeto deve priorizar estab
 
 ## Figma
 
-O prototipo aprovado do DUX Jardim Sao Paulo e a referencia visual principal para a implementacao.
+O prototipo aprovado do DUX Jardim Sao Paulo e a referencia visual principal e criterio de aceite para a implementacao.
