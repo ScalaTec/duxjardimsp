@@ -1,0 +1,269 @@
+{
+  "15": {
+    "t1": [
+      {
+        "id": "t1-final-3",
+        "finais": [
+          3
+        ],
+        "label": "Final 3",
+        "area": "35,24",
+        "img": "plantas/15-t1-final-3"
+      },
+      {
+        "id": "t1-final-4",
+        "finais": [
+          4
+        ],
+        "label": "Final 4",
+        "area": "37,47",
+        "img": "plantas/15-t1-final-4"
+      },
+      {
+        "id": "t1-final-5",
+        "finais": [
+          5
+        ],
+        "label": "Final 5",
+        "area": "38,79",
+        "img": "plantas/15-t1-final-5"
+      }
+    ]
+  },
+  "1-11": {
+    "t1": [
+      {
+        "id": "t1-final-1",
+        "finais": [
+          1
+        ],
+        "label": "Final 1",
+        "area": "34,76",
+        "img": "plantas/1-11-t1-final-1"
+      },
+      {
+        "id": "t1-final-2",
+        "finais": [
+          2
+        ],
+        "label": "Final 2",
+        "area": "29,87",
+        "img": "plantas/1-11-t1-final-2"
+      },
+      {
+        "id": "t1-final-3",
+        "finais": [
+          3
+        ],
+        "label": "Final 3",
+        "area": "35,24",
+        "img": "plantas/1-11-t1-final-3"
+      },
+      {
+        "id": "t1-final-4",
+        "finais": [
+          4
+        ],
+        "label": "Final 4",
+        "area": "37,47",
+        "img": "plantas/1-11-t1-final-4"
+      },
+      {
+        "id": "t1-final-5-7",
+        "finais": [
+          5,
+          7
+        ],
+        "label": "Finais 5/7",
+        "area": "26,75",
+        "img": "plantas/1-11-t1-final-5-7"
+      },
+      {
+        "id": "t1-final-6",
+        "finais": [
+          6
+        ],
+        "label": "Final 6",
+        "area": "28,46",
+        "img": "plantas/1-11-t1-final-6"
+      },
+      {
+        "id": "t1-final-8-9",
+        "finais": [
+          8,
+          9
+        ],
+        "label": "Finais 8/9",
+        "area": "38,80",
+        "img": "plantas/1-11-t1-final-8-9"
+      },
+      {
+        "id": "t1-final-10",
+        "finais": [
+          10
+        ],
+        "label": "Final 10",
+        "area": "31,01",
+        "img": "plantas/1-11-t1-final-10"
+      }
+    ],
+    "t2": [
+      {
+        "id": "t2-final-1",
+        "finais": [
+          1
+        ],
+        "label": "Final 1",
+        "area": "27,76",
+        "img": "plantas/1-11-t2-final-1"
+      },
+      {
+        "id": "t2-final-2-3",
+        "finais": [
+          2,
+          3
+        ],
+        "label": "Finais 2/3",
+        "area": "27,45",
+        "img": "plantas/1-11-t2-final-2-3"
+      },
+      {
+        "id": "t2-final-4-5-6",
+        "finais": [
+          4,
+          5,
+          6
+        ],
+        "label": "Finais 4/5/6",
+        "area": "27,25",
+        "img": "plantas/1-11-t2-final-4-5-6"
+      },
+      {
+        "id": "t2-final-7",
+        "finais": [
+          7
+        ],
+        "label": "Final 7",
+        "area": "29,45",
+        "img": "plantas/1-11-t2-final-7"
+      },
+      {
+        "id": "t2-final-8",
+        "finais": [
+          8
+        ],
+        "label": "Final 8",
+        "area": "39,53",
+        "img": "plantas/1-11-t2-final-8"
+      },
+      {
+        "id": "t2-final-9",
+        "finais": [
+          9
+        ],
+        "label": "Final 9",
+        "area": "35,75",
+        "img": "plantas/1-11-t2-final-9"
+      }
+    ]
+  },
+  "12-14": {
+    "t1": [
+      {
+        "id": "t1-final-1",
+        "finais": [
+          1
+        ],
+        "label": "Final 1",
+        "area": "60,46",
+        "img": "plantas/12-14-t1-final-1"
+      },
+      {
+        "id": "t1-final-3",
+        "finais": [
+          3
+        ],
+        "label": "Final 3",
+        "area": "35,24",
+        "img": "plantas/12-14-t1-final-3"
+      },
+      {
+        "id": "t1-final-4",
+        "finais": [
+          4
+        ],
+        "label": "Final 4",
+        "area": "37,47",
+        "img": "plantas/12-14-t1-final-4"
+      },
+      {
+        "id": "t1-final-5-7",
+        "finais": [
+          5,
+          7
+        ],
+        "label": "Finais 5/7",
+        "area": "26,75",
+        "img": "plantas/12-14-t1-final-5-7"
+      },
+      {
+        "id": "t1-final-6",
+        "finais": [
+          6
+        ],
+        "label": "Final 6",
+        "area": "28,46",
+        "img": "plantas/12-14-t1-final-6"
+      },
+      {
+        "id": "t1-final-8",
+        "finais": [
+          8
+        ],
+        "label": "Final 8",
+        "area": "33,97",
+        "img": "plantas/12-14-t1-final-8"
+      },
+      {
+        "id": "t1-final-9",
+        "finais": [
+          9
+        ],
+        "label": "Final 9",
+        "area": "38,80",
+        "img": "plantas/12-14-t1-final-9"
+      },
+      {
+        "id": "t1-final-10",
+        "finais": [
+          10
+        ],
+        "label": "Final 10",
+        "area": "31,01",
+        "img": "plantas/12-14-t1-final-10"
+      }
+    ]
+  },
+  "16-22": {
+    "t1": [
+      {
+        "id": "t1-final-3",
+        "finais": [
+          3
+        ],
+        "label": "Final 3",
+        "area": "54,55",
+        "img": "plantas/16-22-t1-final-3"
+      },
+      {
+        "id": "t1-final-5",
+        "finais": [
+          5
+        ],
+        "label": "Final 5",
+        "area": "74,67",
+        "img": "plantas/16-22-t1-final-5"
+      }
+    ]
+  }
+}
