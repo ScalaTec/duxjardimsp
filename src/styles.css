@@ -1,0 +1,19 @@
+:root {
+  font-family: Inter, system-ui, Arial, sans-serif;
+  color: #f4efe5;
+  background: #00202f;
+}
+* { box-sizing: border-box; }
+html, body, #root { width: 100%; height: 100%; margin: 0; }
+body { overflow: hidden; }
+.screen {
+  width: 100vw;
+  height: 100vh;
+  min-width: 100%;
+  min-height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #00202f;
+}
+.eyebrow { color: #aba086; letter-spacing: .2em; }
