@@ -15,6 +15,11 @@ contextBridge.exposeInMainWorld('totem', {
   isElectron: true,
   appReady: () => ipcRenderer.send('app:ready'),
   onActivity: (cb: () => void) => subscribe<void>('totem:activity', () => cb()),
+  window: {
+    isFullscreen: (): Promise<boolean> => ipcRenderer.invoke('window:get-fullscreen'),
+    setFullscreen: (on: boolean): Promise<boolean> => ipcRenderer.invoke('window:set-fullscreen', on),
+    onFullscreen: (cb: (on: boolean) => void) => subscribe<boolean>('window:fullscreen', cb),
+  },
   maquete: {
     getState: (): Promise<MaqueteState> => ipcRenderer.invoke('maquete:get-state'),
     onState: (cb: (s: MaqueteState) => void) => subscribe<MaqueteState>('maquete:state', cb),

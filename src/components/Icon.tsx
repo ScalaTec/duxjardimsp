@@ -9,6 +9,7 @@ export type IconName =
   | 'plus'
   | 'minus'
   | 'expand'
+  | 'compress'
   | 'refresh'
   | 'home'
   | 'wifi-off'
@@ -23,6 +24,7 @@ const PATHS: Record<IconName, ReactElement> = {
   plus: <path d="M12 5v14M5 12h14" />,
   minus: <path d="M5 12h14" />,
   expand: <path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" />,
+  compress: <path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5" />,
   refresh: <path d="M20 11a8 8 0 1 0-2.3 5.7M20 4v7h-7" />,
   home: <path d="m3 11 9-8 9 8M5 10v10h5v-6h4v6h5V10" />,
   'wifi-off': <path d="M2 8.8a15 15 0 0 1 4.2-2.6m5.8-.8A15 15 0 0 1 22 8.8M5 12.9a10 10 0 0 1 3.6-2m4.9-.1a10 10 0 0 1 5.5 3M8.5 16.4a5 5 0 0 1 7 0M12 20h.01M3 3l18 18" />,

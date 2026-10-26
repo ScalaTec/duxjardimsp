@@ -35,7 +35,7 @@ Variaveis opcionais (`.env`, veja `.env.example`):
 | Variavel | Padrao | Uso |
 | --- | --- | --- |
 | `VITE_MAQUETE_URL` | `https://dux.allustudio.com/` | URL da Maquete Virtual |
-| `VITE_IDLE_TIMEOUT_MS` | `120000` | Inatividade ate voltar ao Inicio (aviso nos ultimos 15 s) |
+| `VITE_IDLE_TIMEOUT_MS` | `120000` | Inatividade ate voltar ao Inicio (sem aviso na tela) |
 
 ## Build e instalador
 
@@ -52,18 +52,42 @@ Logs tecnicos em `%APPDATA%/dux-jardim-sao-paulo-totem/logs/totem.log`.
 > Gerado em Linux (sem Wine) o `.exe` nao recebe icone/metadados personalizados.
 > Para um executavel com icone, gere o instalador no Windows.
 
+## Versao web (Docker)
+
+O mesmo bundle (`npm run build:web`) pode ser publicado como site estatico, servido por
+nginx sem root na porta 8080:
+
+```bash
+docker build -t dux-jardim-sao-paulo-web .
+docker run --rm -p 8080:8080 dux-jardim-sao-paulo-web   # http://localhost:8080
+```
+
+As variaveis `VITE_*` valem na compilacao, entao vao como `--build-arg`:
+
+```bash
+docker build \
+  --build-arg VITE_MAQUETE_URL=https://dux.allustudio.com/ \
+  --build-arg VITE_IDLE_TIMEOUT_MS=120000 \
+  -t dux-jardim-sao-paulo-web .
+```
+
+Endpoint de saude: `/healthz`. Os caminhos sao relativos, entao tambem funciona atras de
+um proxy em subcaminho. Na web nao existem os recursos do Electron (kiosk, botao de sair da
+tela cheia da janela, preparo da Maquete em segundo plano): a Maquete abre em um `iframe`.
+
 ## Estrutura
 
 ```text
 electron/
   main.ts       janela kiosk, atalhos bloqueados, recuperacao de falhas, IPC
-  maquete.ts    servico isolado da Maquete (WebContentsView, timeout, retentativas)
+  maquete.ts    servico isolado da Maquete (WebContentsView, timeout, retentativas, tela cheia)
+  exit-fullscreen.ts  botao de saida da tela cheia da Maquete (view propria + preload minimo)
   preload.ts    API minima exposta ao renderer (window.totem)
   config.ts     URL, timeouts e intervalos
   logger.ts     log em arquivo
 src/
   pages/        Home, Parceiro, Localizacao, FichaTecnica, Torre, Fachada, Lazer, Plantas, Maquete
-  components/   Nav, Lightbox (zoom/gestos), Implantacao (pinos), IdleGuard, Icon
+  components/   Nav, Lightbox (zoom/gestos), Implantacao (pinos), IdleGuard, FullscreenToggle, Icon
   data/         conteudo, lazer (pinos nas implantacoes), plantas (pinos por unidade)
   lib/          preload de imagens, hook da Maquete, rotas/secoes
   styles/       tokens, shell/navegacao, componentes e paginas (rem fluido, retrato)
@@ -88,6 +112,23 @@ Falhas (offline, DNS, timeout, HTTP, certificado, crash/travamento do renderer)
 viram um estado simples e a interface mostra o fallback DUX com
 "Tentar novamente" e "Voltar a apresentacao". Quando a internet volta, a
 preparacao e retomada sem reiniciar o app.
+
+A Maquete e um stream (Streampixel): so e dada como pronta quando o `<video>` esta tocando,
+com o mesmo prazo e fallback DUX de qualquer falha. Se o stream cair (o servidor encerra a
+sessao por inatividade), a Maquete e recarregada sozinha: na hora, se alguem a esta vendo; ao
+abri-la, se ninguem estava (nao mantem um stream aberto sem uso). O aviso "No activity
+detected" do Streampixel fica oculto.
+
+### Tela cheia
+
+- **Botao de tela cheia da propria Maquete**: a view da Maquete so tem a permissao
+  `fullscreen` (as demais continuam negadas). Ao expandir, a view passa a cobrir a
+  janela inteira e um botao discreto no canto superior direito (view propria, acima
+  da Maquete) volta ao palco. Sair da pagina da Maquete (inclusive
+  pelo retorno por inatividade) encerra a tela cheia dela.
+- **Botao discreto da interface** (canto superior direito, em todas as telas): sai da tela
+  cheia/kiosk do totem para liberar a area de trabalho do Windows e, fora dela, volta.
+  O cursor do mouse so fica oculto enquanto o totem esta em tela cheia.
 
 ## Imagens
 

@@ -32,6 +32,47 @@ process.on('unhandledRejection', (err) => {
 /** Aceita IPC apenas da janela principal. */
 const fromApp = (e: IpcMainEvent | IpcMainInvokeEvent) => !!win && e.sender === win.webContents;
 
+/** Janela em tela cheia / kiosk (a Maquete em tela cheia propria nao conta aqui). */
+const isFullscreen = () => !!win && !win.isDestroyed() && (win.isFullScreen() || win.isKiosk());
+
+// Totem de toque: sem cursor do mouse, mas so enquanto estiver em tela cheia
+// (no executavel instalado), para quem sair dela conseguir usar o mouse.
+const HIDE_CURSOR_CSS = '*{cursor:none !important}';
+let cursorCssKey: string | null = null;
+
+function syncCursor(): void {
+  if (isDev || !win || win.isDestroyed()) return;
+  const wc = win.webContents;
+  if (isFullscreen() && cursorCssKey === null) {
+    cursorCssKey = ''; // reserva: evita inserir duas vezes enquanto a promessa nao volta
+    wc.insertCSS(HIDE_CURSOR_CSS)
+      .then((key) => {
+        cursorCssKey = key;
+        syncCursor();
+      })
+      .catch(() => (cursorCssKey = null));
+  } else if (!isFullscreen() && cursorCssKey) {
+    const key = cursorCssKey;
+    cursorCssKey = null;
+    wc.removeInsertedCSS(key).catch(() => undefined);
+  }
+}
+
+/** Botao discreto da interface: sai da tela cheia (libera a area de trabalho) ou volta a ela. */
+function setFullscreen(w: BrowserWindow, on: boolean): void {
+  log('info', `tela cheia ${on ? 'ativada' : 'desativada'} pelo botao da interface`);
+  if (on) {
+    w.setFullScreen(true);
+    if (!isDev) w.setKiosk(true);
+  } else {
+    w.setKiosk(false);
+    w.setFullScreen(false);
+    // Janela sem moldura: ocupa a area util e deixa a barra de tarefas visivel.
+    if (!isDev) w.maximize();
+  }
+  syncCursor();
+}
+
 function createWindow(): void {
   win = new BrowserWindow({
     width: 1920,
@@ -65,9 +106,17 @@ function createWindow(): void {
   wc.setWindowOpenHandler(() => ({ action: 'deny' }));
   wc.on('will-navigate', (e) => e.preventDefault());
   wc.on('did-finish-load', () => {
-    // Totem de toque: sem cursor do mouse (somente no executavel instalado).
-    if (!isDev) void wc.insertCSS('*{cursor:none !important}');
+    cursorCssKey = null; // o CSS inserido se perde a cada carregamento
+    syncCursor();
   });
+
+  // Estado da tela cheia para o botao da interface (inclui mudancas feitas por fora, ex.: F11 no dev).
+  const pushFullscreen = () => {
+    if (!wc.isDestroyed()) wc.send('window:fullscreen', isFullscreen());
+    syncCursor();
+  };
+  w.on('enter-full-screen', pushFullscreen);
+  w.on('leave-full-screen', pushFullscreen);
 
   // Recuperacao: se o renderer da interface cair, recarrega em vez de ficar travado.
   wc.on('render-process-gone', (_e, details) => {
@@ -119,6 +168,13 @@ ipcMain.handle('maquete:show', (e, bounds: Bounds) => (fromApp(e) && maquete ? m
 ipcMain.on('maquete:bounds', (e, bounds: Bounds) => fromApp(e) && maquete?.setBounds(bounds));
 ipcMain.on('maquete:hide', (e) => fromApp(e) && maquete?.hide());
 ipcMain.handle('maquete:retry', (e) => (fromApp(e) && maquete ? maquete.retry() : null));
+ipcMain.on('maquete:exit-fullscreen', (e) => maquete?.exitFullscreenFrom(e.sender));
+ipcMain.handle('window:get-fullscreen', (e) => (fromApp(e) ? isFullscreen() : null));
+ipcMain.handle('window:set-fullscreen', (e, on: boolean) => {
+  if (!fromApp(e) || !win) return null;
+  setFullscreen(win, on === true);
+  return isFullscreen();
+});
 
 app.on('second-instance', () => {
   if (win) {

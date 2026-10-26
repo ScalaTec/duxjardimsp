@@ -3,8 +3,15 @@
 
 export const MAQUETE_URL = process.env.VITE_MAQUETE_URL || 'https://dux.allustudio.com/';
 
-/** Tempo maximo para a Maquete terminar de carregar antes de cair no fallback. */
-export const MAQUETE_LOAD_TIMEOUT_MS = 45_000;
+/**
+ * Tempo maximo para a Maquete carregar E o stream comecar a tocar antes de cair no
+ * fallback (o servidor de renderizacao pode precisar subir uma instancia).
+ */
+export const MAQUETE_LOAD_TIMEOUT_MS = 60_000;
+
+/** O stream e verificado a cada intervalo; so e dado como perdido apos ficar parado por este tempo. */
+export const MAQUETE_STREAM_POLL_MS = 2_000;
+export const MAQUETE_STREAM_LOST_MS = 6_000;
 
 /** Renderer travado (nao responde) por mais que isso: a view e recriada. */
 export const MAQUETE_HANG_TIMEOUT_MS = 20_000;

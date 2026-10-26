@@ -22,6 +22,13 @@ export interface TotemApi {
   appReady(): void;
   /** Atividade de toque/teclado dentro da Maquete (que roda em outra view). */
   onActivity(cb: () => void): () => void;
+  window: {
+    /** Janela em tela cheia / kiosk. */
+    isFullscreen(): Promise<boolean>;
+    /** Entra (`true`) ou sai (`false`) da tela cheia; devolve o estado resultante. */
+    setFullscreen(on: boolean): Promise<boolean>;
+    onFullscreen(cb: (on: boolean) => void): () => void;
+  };
   maquete: {
     getState(): Promise<MaqueteState>;
     onState(cb: (state: MaqueteState) => void): () => void;

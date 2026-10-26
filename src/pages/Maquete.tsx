@@ -68,6 +68,7 @@ function MaqueteWeb({ onBack }: { onBack: () => void }) {
           className="m-frame"
           src={MAQUETE.url}
           title="Maquete virtual do DUX Jardim São Paulo"
+          allow="fullscreen"
           onLoad={() => setFase('ready')}
           style={{ visibility: fase === 'ready' ? 'visible' : 'hidden' }}
         />

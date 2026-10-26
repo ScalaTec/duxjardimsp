@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
+import FullscreenToggle from './components/FullscreenToggle';
 import IdleGuard from './components/IdleGuard';
 import Nav from './components/Nav';
 import { preloadImagens } from './lib/preload';
@@ -57,6 +58,7 @@ export default function App() {
 
       <Nav />
       <IdleGuard />
+      <FullscreenToggle />
     </div>
   );
 }

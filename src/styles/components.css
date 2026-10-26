@@ -371,6 +371,27 @@
   color: var(--fg-mute);
 }
 
+/* ---------- Sair/entrar da tela cheia ---------- */
+.fs-toggle {
+  position: fixed;
+  top: 0.3rem;
+  right: 0.3rem;
+  z-index: 300;
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: rgba(2, 27, 42, 0.45);
+  color: #fff;
+  opacity: 0.16;
+  transition: opacity 0.2s, background-color 0.2s;
+}
+.fs-toggle:active {
+  opacity: 0.9;
+  background: var(--navy-700);
+}
+
 /* ---------- Inatividade ---------- */
 .idle {
   position: fixed;
