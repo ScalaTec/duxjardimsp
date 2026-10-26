@@ -1,0 +1,14 @@
+node_modules
+dist
+dist-electron
+release
+.git
+.vscode
+.idea
+.env
+.env.*
+*.log
+.DS_Store
+Thumbs.db
+Dockerfile
+.dockerignore
