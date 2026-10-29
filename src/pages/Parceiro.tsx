@@ -21,14 +21,36 @@ export default function Parceiro() {
             {t}
           </p>
         ))}
-        <ul className="facts">
-          {p.destaques.map((d) => (
-            <li key={d.valor + d.rotulo}>
-              <strong>{d.valor}</strong>
-              <span>{d.rotulo}</span>
-            </li>
-          ))}
-        </ul>
+        {p.destaques && (
+          <ul className="facts">
+            {p.destaques.map((d) => (
+              <li key={d.valor + d.rotulo}>
+                <strong>{d.valor}</strong>
+                <span>{d.rotulo}</span>
+              </li>
+            ))}
+          </ul>
+        )}
+        {p.experiencia && (
+          <div className="experiencia">
+            <p className="eyebrow">{p.experiencia.titulo}</p>
+            <div className="experiencia-grupos">
+              {p.experiencia.grupos.map((g) => (
+                <div key={g.titulo} className="experiencia-grupo">
+                  <h2>{g.titulo}</h2>
+                  <ul className="facts">
+                    {g.itens.map((i) => (
+                      <li key={i.valor + i.rotulo}>
+                        <strong>{i.valor}</strong>
+                        <span>{i.rotulo}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
         <div className="actions">
           <button type="button" className="btn btn-sand" onClick={() => navigate('/')}>
             <Icon name="arrow-left" /> VOLTAR AO INÍCIO

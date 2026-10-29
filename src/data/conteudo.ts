@@ -44,7 +44,12 @@ export interface Parceiro {
   papel: string;
   manchete: string;
   textos: string[];
-  destaques: { valor: string; rotulo: string }[];
+  destaques?: { valor: string; rotulo: string }[];
+  /** Blocos de numeros agrupados, exibidos sob um titulo proprio. */
+  experiencia?: {
+    titulo: string;
+    grupos: { titulo: string; itens: { valor: string; rotulo: string }[] }[];
+  };
   logo: string;
   cor?: string;
   /** Resumo exibido no cartao da Home. */
@@ -80,13 +85,30 @@ export const PARCEIROS: Record<Parceiro['id'], Parceiro> = {
     manchete: 'Incorporação e desenvolvimento imobiliário por trás do projeto.',
     textos: [
       'A Massoret representa a convergência de duas famílias com tradição no mercado imobiliário, unidas pelo propósito de criar empreendimentos marcados pelo sucesso.',
-      'Especialista no desenvolvimento completo de incorporações — da aquisição do terreno à entrega das unidades —, cada detalhe é pensado com responsabilidade, respeito e compromisso com o futuro.',
+      'Especialista no desenvolvimento completo de incorporações — da aquisição do terreno à entrega das unidades —, seus sócios somam quase 100 anos de atuação, reunindo experiência em construção, incorporação, desenvolvimento imobiliário e vendas.',
       'Massoret significa “tradição” em hebraico: uma bagagem que inspira e orienta cada novo projeto.',
     ],
-    destaques: [
-      { valor: 'Tradição', rotulo: 'significado de Massoret' },
-      { valor: 'Do terreno', rotulo: 'à entrega das unidades' },
-    ],
+    experiencia: {
+      titulo: 'Experiência dos sócios',
+      grupos: [
+        {
+          titulo: 'Participação em construção e incorporação',
+          itens: [
+            { valor: '5', rotulo: 'empreendimentos' },
+            { valor: 'R$ 260 milhões', rotulo: 'em VGV' },
+            { valor: '226', rotulo: 'unidades entregues' },
+          ],
+        },
+        {
+          titulo: 'Desenvolvimento imobiliário e vendas',
+          itens: [
+            { valor: '12', rotulo: 'empreendimentos' },
+            { valor: 'R$ 630 milhões', rotulo: 'em VGV' },
+            { valor: '1.419', rotulo: 'unidades entregues' },
+          ],
+        },
+      ],
+    },
     logo: 'brand/massoret.webp',
     resumo: ['Incorporação', 'Tradição e desenvolvimento imobiliário'],
   },
