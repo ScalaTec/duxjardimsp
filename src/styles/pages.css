@@ -999,6 +999,53 @@
   line-height: 1.1;
   animation: fade-in 0.35s var(--ease) both;
 }
+.unit-areas {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-top: 0.8rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid var(--line);
+}
+.unit-areas ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+.unit-areas li {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: baseline;
+  gap: 0 1rem;
+}
+.unit-areas li strong {
+  min-width: 4.5rem;
+  font-size: 0.95rem;
+  font-weight: 800;
+}
+.unit-areas li > div {
+  grid-column: 2;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.1rem 1.5rem;
+}
+.unit-areas li:not(:has(strong)) > div {
+  grid-column: 1 / -1;
+}
+.unit-areas span {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+}
+.unit-areas b {
+  font-weight: 800;
+}
+.unit-areas em {
+  font-style: normal;
+  color: var(--fg-mute);
+  font-size: 0.8rem;
+}
 .unit-preview {
   min-height: 0;
   overflow: hidden;

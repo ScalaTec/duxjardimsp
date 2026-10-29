@@ -115,11 +115,10 @@ for (const g of grupos) {
     const d = path.join(P, g.dir, tdir);
     const lista = [];
     for (const f of readdirSync(d).filter((x) => /\.jpe?g$/i.test(x))) {
-      const m = f.match(/FINAL\s+([\d, e]+?)\s*-\s*([\d,]+)/i);
+      const m = f.match(/FINAL\s+([\d, e]+?)\s*-/i);
       if (!m) throw new Error(`Nome de planta inesperado: ${f}`);
       const nums = m[1].split(/\s*(?:,|\se\s)\s*/).map((n) => String(parseInt(n, 10)));
       const slug = `final-${nums.join('-')}`;
-      const area = m[2];
       const dest = `plantas/${g.id}-${tk}-${slug}`;
       // Apara a margem branca da planta (o JPG original tem ~70% de area vazia).
       imgWithThumb(path.join(d, f), dest, {
@@ -132,7 +131,6 @@ for (const g of grupos) {
         id: `${tk}-${slug}`,
         finais: nums.map(Number),
         label: `${nums.length > 1 ? 'Finais' : 'Final'} ${nums.join('/')}`,
-        area,
         img: dest,
       });
     }

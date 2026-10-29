@@ -7,7 +7,6 @@
           3
         ],
         "label": "Final 3",
-        "area": "35,24",
         "img": "plantas/15-t1-final-3"
       },
       {
@@ -16,7 +15,6 @@
           4
         ],
         "label": "Final 4",
-        "area": "37,47",
         "img": "plantas/15-t1-final-4"
       },
       {
@@ -25,7 +23,6 @@
           5
         ],
         "label": "Final 5",
-        "area": "38,79",
         "img": "plantas/15-t1-final-5"
       }
     ]
@@ -38,7 +35,6 @@
           1
         ],
         "label": "Final 1",
-        "area": "34,76",
         "img": "plantas/1-11-t1-final-1"
       },
       {
@@ -47,7 +43,6 @@
           2
         ],
         "label": "Final 2",
-        "area": "29,87",
         "img": "plantas/1-11-t1-final-2"
       },
       {
@@ -56,7 +51,6 @@
           3
         ],
         "label": "Final 3",
-        "area": "35,24",
         "img": "plantas/1-11-t1-final-3"
       },
       {
@@ -65,7 +59,6 @@
           4
         ],
         "label": "Final 4",
-        "area": "37,47",
         "img": "plantas/1-11-t1-final-4"
       },
       {
@@ -75,7 +68,6 @@
           7
         ],
         "label": "Finais 5/7",
-        "area": "26,75",
         "img": "plantas/1-11-t1-final-5-7"
       },
       {
@@ -84,7 +76,6 @@
           6
         ],
         "label": "Final 6",
-        "area": "28,46",
         "img": "plantas/1-11-t1-final-6"
       },
       {
@@ -94,7 +85,6 @@
           9
         ],
         "label": "Finais 8/9",
-        "area": "38,80",
         "img": "plantas/1-11-t1-final-8-9"
       },
       {
@@ -103,7 +93,6 @@
           10
         ],
         "label": "Final 10",
-        "area": "31,01",
         "img": "plantas/1-11-t1-final-10"
       }
     ],
@@ -114,7 +103,6 @@
           1
         ],
         "label": "Final 1",
-        "area": "27,76",
         "img": "plantas/1-11-t2-final-1"
       },
       {
@@ -124,7 +112,6 @@
           3
         ],
         "label": "Finais 2/3",
-        "area": "27,45",
         "img": "plantas/1-11-t2-final-2-3"
       },
       {
@@ -135,7 +122,6 @@
           6
         ],
         "label": "Finais 4/5/6",
-        "area": "27,25",
         "img": "plantas/1-11-t2-final-4-5-6"
       },
       {
@@ -144,7 +130,6 @@
           7
         ],
         "label": "Final 7",
-        "area": "29,45",
         "img": "plantas/1-11-t2-final-7"
       },
       {
@@ -153,7 +138,6 @@
           8
         ],
         "label": "Final 8",
-        "area": "39,53",
         "img": "plantas/1-11-t2-final-8"
       },
       {
@@ -162,7 +146,6 @@
           9
         ],
         "label": "Final 9",
-        "area": "35,75",
         "img": "plantas/1-11-t2-final-9"
       }
     ]
@@ -175,7 +158,6 @@
           1
         ],
         "label": "Final 1",
-        "area": "60,46",
         "img": "plantas/12-14-t1-final-1"
       },
       {
@@ -184,7 +166,6 @@
           3
         ],
         "label": "Final 3",
-        "area": "35,24",
         "img": "plantas/12-14-t1-final-3"
       },
       {
@@ -193,7 +174,6 @@
           4
         ],
         "label": "Final 4",
-        "area": "37,47",
         "img": "plantas/12-14-t1-final-4"
       },
       {
@@ -203,7 +183,6 @@
           7
         ],
         "label": "Finais 5/7",
-        "area": "26,75",
         "img": "plantas/12-14-t1-final-5-7"
       },
       {
@@ -212,7 +191,6 @@
           6
         ],
         "label": "Final 6",
-        "area": "28,46",
         "img": "plantas/12-14-t1-final-6"
       },
       {
@@ -221,7 +199,6 @@
           8
         ],
         "label": "Final 8",
-        "area": "33,97",
         "img": "plantas/12-14-t1-final-8"
       },
       {
@@ -230,7 +207,6 @@
           9
         ],
         "label": "Final 9",
-        "area": "38,80",
         "img": "plantas/12-14-t1-final-9"
       },
       {
@@ -239,7 +215,6 @@
           10
         ],
         "label": "Final 10",
-        "area": "31,01",
         "img": "plantas/12-14-t1-final-10"
       }
     ]
@@ -252,7 +227,6 @@
           3
         ],
         "label": "Final 3",
-        "area": "54,55",
         "img": "plantas/16-22-t1-final-3"
       },
       {
@@ -261,7 +235,6 @@
           5
         ],
         "label": "Final 5",
-        "area": "74,67",
         "img": "plantas/16-22-t1-final-5"
       }
     ]

@@ -88,7 +88,7 @@ electron/
 src/
   pages/        Home, Parceiro, Localizacao, FichaTecnica, Torre, Fachada, Lazer, Plantas, Maquete
   components/   Nav, Lightbox (zoom/gestos), Implantacao (pinos), IdleGuard, FullscreenToggle, Icon
-  data/         conteudo, lazer (pinos nas implantacoes), plantas (pinos por unidade)
+  data/         conteudo, lazer (pinos nas implantacoes), plantas (pinos por unidade e metragens do Book A3 por final/pavimento)
   lib/          preload de imagens, hook da Maquete, rotas/secoes
   styles/       tokens, shell/navegacao, componentes e paginas (rem fluido, retrato)
 public/img/     imagens otimizadas (WebP) usadas pelo app

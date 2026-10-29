@@ -2,10 +2,21 @@ import { useMemo, useState } from 'react';
 import Icon from '../components/Icon';
 import Implantacao, { PinoMapa } from '../components/Implantacao';
 import Lightbox from '../components/Lightbox';
-import { PAVIMENTOS, formatarArea, unidadeDoPino, type TorrePav, type Unidade } from '../data/plantas';
+import {
+  PAVIMENTOS,
+  detalheMetragens,
+  formatarArea,
+  resumoArea,
+  textoMetragem,
+  unidadeDoPino,
+  type TorrePav,
+  type Unidade,
+} from '../data/plantas';
 import { full, img, thumb } from '../lib/asset';
 
 type Item = Unidade & { torre: TorrePav };
+
+const pavimentosDa = (torre: TorrePav, titulo: string) => `${torre.nome} · ${torre.pavimentos ?? titulo} pavimento`;
 
 export default function Plantas() {
   const [pavId, setPavId] = useState(PAVIMENTOS[0].id);
@@ -19,6 +30,7 @@ export default function Plantas() {
 
   const atual = itens.find((i) => i.id === selId) ?? itens[0];
   const indice = itens.indexOf(atual);
+  const detalhe = detalheMetragens(atual);
   const passo = (d: number) => setSelId(itens[(indice + d + itens.length) % itens.length].id);
 
   const trocarPavimento = (id: typeof pavId) => {
@@ -95,7 +107,7 @@ export default function Plantas() {
                       onClick={() => setSelId(u.id)}
                     >
                       <strong>{u.label}</strong>
-                      <span>{formatarArea(u.area)}</span>
+                      <span>{resumoArea(u)}</span>
                     </button>
                   ))}
                 </div>
@@ -108,11 +120,29 @@ export default function Plantas() {
           <div className="unit-head">
             <p className="eyebrow">UNIDADE SELECIONADA</p>
             <h2 key={atual.id}>
-              {atual.label} · {formatarArea(atual.area)}
+              {atual.label} · {resumoArea(atual)}
             </h2>
-            <p className="muted">
-              {atual.torre.nome} · {pav.titulo} pavimento
-            </p>
+            <p className="muted">{pavimentosDa(atual.torre, pav.titulo)}</p>
+            {detalhe.length > 0 && (
+              <div className="unit-areas">
+                <p className="eyebrow">METRAGEM POR FINAL E PAVIMENTO</p>
+                <ul>
+                  {detalhe.map((l) => (
+                    <li key={l.rotulo ?? 'unico'}>
+                      {l.rotulo && <strong>{l.rotulo}</strong>}
+                      <div>
+                        {l.itens.map((i) => (
+                          <span key={i.area + (i.pav ?? '')}>
+                            <b>{formatarArea(i.area)}</b>
+                            {i.pav && <em>{i.pav}</em>}
+                          </span>
+                        ))}
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
 
           <button
@@ -146,10 +176,11 @@ export default function Plantas() {
         <Lightbox
           items={itens.map((i) => ({
             src: full(i.img),
-            alt: `Planta ${i.label}, ${formatarArea(i.area)}`,
+            alt: `Planta ${i.label}, ${resumoArea(i)}`,
             eyebrow: 'PLANTA AMPLIADA',
-            title: `${i.label} · ${formatarArea(i.area)}`,
-            subtitle: `${i.torre.nome} · ${pav.titulo} pavimento`,
+            title: `${i.label} · ${resumoArea(i)}`,
+            subtitle: pavimentosDa(i.torre, pav.titulo),
+            details: detalheMetragens(i).map(textoMetragem),
             tone: 'paper' as const,
           }))}
           index={indice}

@@ -8,6 +8,8 @@ export interface LightboxItem {
   eyebrow?: string;
   title: string;
   subtitle?: string;
+  /** Linhas extras sob o subtitulo (ex.: metragem por final). */
+  details?: string[];
   /** `paper`: quadro branco (plantas); `dark`: fotos sobre fundo escuro. */
   tone?: 'paper' | 'dark';
 }
@@ -240,6 +242,13 @@ export default function Lightbox({ items, index, onIndex, onClose, closeLabel }:
           {item.eyebrow && <p className="eyebrow">{item.eyebrow}</p>}
           <h2 className="lb-title">{item.title}</h2>
           {item.subtitle && <p className="lb-sub">{item.subtitle}</p>}
+          {item.details && item.details.length > 0 && (
+            <ul className="lb-details">
+              {item.details.map((d) => (
+                <li key={d}>{d}</li>
+              ))}
+            </ul>
+          )}
         </div>
         <p className="brand-mini" aria-hidden="true">
           <strong>DUX</strong>
