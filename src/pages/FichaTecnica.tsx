@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import Icon from '../components/Icon';
-import { EMPREENDIMENTO, FICHA, TORRES } from '../data/conteudo';
+import { AREAS_COMUNS, EMPREENDIMENTO, FICHA, TORRES } from '../data/conteudo';
 import { thumb } from '../lib/asset';
 
 export default function FichaTecnica() {
@@ -16,6 +16,25 @@ export default function FichaTecnica() {
             {EMPREENDIMENTO.endereco} · {EMPREENDIMENTO.sub}
           </p>
         </div>
+
+        <button
+          type="button"
+          className="card comuns-card"
+          onClick={() => navigate('/ficha-tecnica/areas-comuns')}
+        >
+          <span className="eyebrow">ÁREAS COMUNS · LOJAS, VAGAS E LAZER</span>
+          <span className="comuns-itens">
+            {AREAS_COMUNS.destaques.map((d) => (
+              <span key={d.rotulo}>
+                <strong>{d.valor}</strong>
+                <small>{d.rotulo}</small>
+              </span>
+            ))}
+          </span>
+          <span className="comuns-cta">
+            VER ÁREAS COMUNS <Icon name="arrow-right" size="1em" />
+          </span>
+        </button>
 
         <ul className="stats">
           {FICHA.stats.map((s) => (
