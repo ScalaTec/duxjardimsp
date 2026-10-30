@@ -191,11 +191,11 @@ export const formatarArea = (area: string) => `${area} m²`;
 
 const numero = (area: string) => parseFloat(area.replace(',', '.'));
 
-/** Area da planta: "38,80 m²" ou, quando varia entre finais/pavimentos, "26,62 - 28,37 m²". */
+/** Area da planta: "38,80 m²" ou, quando varia entre finais/pavimentos, "26,62 / 28,37 m²". */
 export const resumoArea = (u: Unidade): string => {
   const areas = [...new Set(u.metragens.map((m) => m.area))].sort((a, b) => numero(a) - numero(b));
   if (areas.length === 0) return '';
-  return areas.length === 1 ? formatarArea(areas[0]) : `${areas[0]} - ${formatarArea(areas[areas.length - 1])}`;
+  return areas.length === 1 ? formatarArea(areas[0]) : `${areas[0]} / ${formatarArea(areas[areas.length - 1])}`;
 };
 
 export interface LinhaMetragem {
