@@ -125,7 +125,7 @@ export const LOCALIZACAO = {
   /** Rotulos da foto aerea oficial; x/y em % da imagem. */
   pois: [
     { id: 'estacao', nome: 'Estação Jardim São Paulo · 1 min a pé', curto: 'Estação Jardim São Paulo', x: 50.2, y: 59.5 },
-    { id: 'parque-domingo-luis', nome: 'Parque Domingo Luís', curto: 'Parque Domingo Luís', x: 52.8, y: 77.3 },
+    { id: 'parque-domingo-luis', nome: 'Parque Domingos Luís', curto: 'Parque Domingos Luís', x: 52.8, y: 77.3 },
     { id: 'shopping', nome: 'Shopping Center Norte', curto: 'Shopping Center Norte', x: 38.9, y: 17.7 },
     { id: 'expo', nome: 'Expo Center Norte', curto: 'Expo Center Norte', x: 25.3, y: 11.8 },
     { id: 'juventude', nome: 'Parque da Juventude', curto: 'Parque da Juventude', x: 48.8, y: 25.6 },
@@ -163,6 +163,64 @@ export const FICHA = {
   ],
 };
 
+export interface GrupoComum {
+  titulo: string;
+  /** Acesso/observacao exibida sob o titulo. */
+  nota?: string;
+  linhas: string[];
+}
+
+/** Itens comuns as duas torres (Ficha Tecnica do Book). */
+export const AREAS_COMUNS = {
+  titulo: 'Lojas, vagas e lazer',
+  img: 'lazer/hall',
+  destaques: [
+    { valor: '328 m²', rotulo: 'loja comercial principal' },
+    { valor: '19', rotulo: 'vagas cobertas para autos' },
+    { valor: '24h', rotulo: 'portaria blindada' },
+  ],
+  grupos: [
+    {
+      titulo: '1º Subsolo',
+      nota: 'Acesso pelo Parque Domingos Luís',
+      linhas: [
+        'Loja comercial de 37 m²',
+        'Acesso de pedestres e automóveis',
+        'Acesso aos 5 elevadores das 2 torres',
+        'Acesso de pedestres para o Parque Domingos Luís',
+        'Áreas técnicas',
+      ],
+    },
+    {
+      titulo: 'Vagas',
+      nota: '19 vagas cobertas para autos',
+      linhas: [
+        '17 vagas destinadas às unidades de 54 a 74 m² (indeterminado/sorteio)',
+        '2 vagas para car sharing',
+        '5 vagas de motos, cobertas, de uso comum',
+        '1 vaga coberta e especial PCD de uso comum',
+      ],
+    },
+    {
+      titulo: 'Térreo',
+      nota: 'Acesso pela Rua Fábio Fanucchi, 325',
+      linhas: [
+        'Portaria 24h blindada',
+        'Clausura',
+        'Lobby',
+        'Lazer completo coberto e descoberto',
+        'Lazer em área verde',
+        'Acesso aos 5 elevadores das 2 torres',
+      ],
+    },
+    {
+      titulo: 'Loja comercial principal · 328 m²',
+      nota: 'Acesso pela Avenida Leôncio de Magalhães',
+      linhas: [],
+    },
+  ] as GrupoComum[],
+};
+
 export interface Torre {
   id: 'torre-1' | 'torre-2';
   nome: string;
@@ -181,8 +239,8 @@ export const TORRES: Torre[] = [
       {
         titulo: '1º–15º pavimentos',
         linhas: [
-          '52 apartamentos de 2 dormitórios · entre 34 e 39 m²',
-          '85 apartamentos de 1 dormitório · entre 27 e 38 m²',
+          '52 apartamentos de 2 dormitórios · entre 34 e 38 m²',
+          '85 apartamentos de 1 dormitório · entre 26 e 37 m²',
           'Lazer descoberto e coberto no 15º pavimento',
         ],
       },
@@ -193,8 +251,8 @@ export const TORRES: Torre[] = [
       {
         titulo: '16º–22º pavimentos',
         linhas: [
-          '7 apartamentos de 2 dormitórios/suíte · 55 m² · 1 vaga cada',
-          '7 apartamentos de 2 suítes + lavabo · 75 m² · 1 vaga cada',
+          '7 apartamentos de 2 dormitórios/suíte · 54 m² · 1 vaga cada',
+          '7 apartamentos de 2 suítes + lavabo · 74 m² · 1 vaga cada',
         ],
       },
     ],
@@ -212,13 +270,13 @@ export const TORRES: Torre[] = [
       {
         titulo: 'Apartamentos · 2º–11º pavimentos',
         linhas: [
-          '29 apartamentos de 1 dormitório · entre 27 e 29 m²',
-          '19 apartamentos de 2 dormitórios · entre 36 e 39 m²',
+          '29 apartamentos de 1 dormitório · entre 26 e 29 m²',
+          '19 apartamentos de 2 dormitórios · entre 35 e 39 m²',
         ],
       },
       {
         titulo: 'Garden',
-        linhas: ['1 apartamento garden de 2 dormitórios · 49 m²'],
+        linhas: ['1 apartamento garden de 2 dormitórios · 51 m²'],
       },
     ],
   },
