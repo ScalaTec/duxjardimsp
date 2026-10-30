@@ -9,7 +9,8 @@ import { full, img, thumb } from './asset';
  * Miniaturas primeiro (telas), depois as versoes ampliadas.
  */
 export function preloadImagens(): () => void {
-  const urls: string[] = [
+  // Set: finais que dividem a mesma planta apontam para a mesma imagem.
+  const urls = [...new Set<string>([
     img('localizacao/aerea.webp'),
     ...FACHADAS.map((f) => thumb(f.img)),
     ...NIVEIS.flatMap((n) => [img(n.plano), ...n.ambientes.map((a) => thumb(a.img))]),
@@ -20,7 +21,7 @@ export function preloadImagens(): () => void {
     ...FACHADAS.map((f) => full(f.img)),
     ...NIVEIS.flatMap((n) => n.ambientes.map((a) => full(a.img))),
     ...PAVIMENTOS.flatMap((p) => p.torres.flatMap((t) => t.unidades.map((u) => full(u.img)))),
-  ];
+  ])];
 
   let cancelado = false;
   let i = 0;

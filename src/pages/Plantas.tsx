@@ -125,7 +125,7 @@ export default function Plantas() {
             <p className="muted">{pavimentosDa(atual.torre, pav.titulo)}</p>
             {detalhe.length > 0 && (
               <div className="unit-areas">
-                <p className="eyebrow">METRAGEM POR FINAL E PAVIMENTO</p>
+                <p className="eyebrow">METRAGEM POR PAVIMENTO</p>
                 <ul>
                   {detalhe.map((l) => (
                     <li key={l.rotulo ?? 'unico'}>

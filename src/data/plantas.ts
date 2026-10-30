@@ -13,7 +13,7 @@ export interface Metragem {
   pav?: string;
 }
 
-/** Uma planta (imagem), que pode servir a mais de um final. */
+/** Um final e sua planta (a imagem pode ser a mesma de outros finais). */
 export interface Unidade {
   id: string;
   finais: number[];
@@ -95,8 +95,17 @@ const METRAGENS: Record<string, Metragem[]> = {
 };
 
 type Gerado = Record<string, Partial<Record<'t1' | 't2', Omit<Unidade, 'metragens'>[]>>>;
+/** Uma opcao por final: plantas compartilhadas (ex.: finais 8/9) repetem a mesma imagem. */
 const un = (pav: string, t: 't1' | 't2'): Unidade[] =>
-  ((gerado as Gerado)[pav]?.[t] ?? []).map((u) => ({ ...u, metragens: METRAGENS[`${pav}/${u.id}`] ?? [] }));
+  ((gerado as Gerado)[pav]?.[t] ?? []).flatMap((u) =>
+    u.finais.map((final) => ({
+      id: `${t}-final-${final}`,
+      finais: [final],
+      label: `Final ${final}`,
+      img: u.img,
+      metragens: (METRAGENS[`${pav}/${u.id}`] ?? []).filter((m) => m.final === final),
+    })),
+  ).sort((a, b) => a.finais[0] - b.finais[0]);
 const pinos = (lista: [number, number, number][]): Pino[] => lista.map(([n, x, y]) => ({ n, x, y }));
 
 export const PAVIMENTOS: Pavimento[] = [
