@@ -471,46 +471,45 @@
 .comuns-card {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  padding: 1.4rem 1.6rem;
-  text-align: left;
+  gap: 0.9rem;
+  padding: 1.3rem 1.6rem 1.4rem;
   background: var(--surface-2);
 }
-.comuns-itens {
+.comuns-grupos {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.1rem 2rem;
 }
-.comuns-itens > span {
-  display: flex;
-  flex-direction: column;
-  gap: 0.15rem;
-}
-.comuns-itens > span + span {
-  padding-left: 1rem;
-  border-left: 1px solid var(--line);
-}
-.comuns-itens strong {
-  font-size: 1.7rem;
+.comuns-grupos h2 {
+  font-size: 1.05rem;
   font-weight: 800;
-  letter-spacing: -0.02em;
 }
-.comuns-itens small {
-  font-size: 0.9rem;
+.comuns-grupos .nota {
+  margin: 0.1rem 0 0.35rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--sand-700);
+}
+.comuns-grupos ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.comuns-grupos li {
+  position: relative;
+  padding-left: 0.9rem;
+  font-size: 0.88rem;
+  line-height: 1.4;
   color: var(--fg-mute);
 }
-.comuns-cta {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.6rem;
-  min-height: 3.25rem;
-  border-radius: 999px;
-  background: var(--navy-900);
-  color: #fff;
-  font-size: 0.85rem;
-  font-weight: 800;
-  letter-spacing: 0.06em;
+.comuns-grupos li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.6em;
+  width: 0.35rem;
+  height: 1px;
+  background: currentColor;
 }
 .ficha-torres {
   display: grid;
@@ -641,17 +640,6 @@
 }
 .torre-comp .actions {
   margin-top: 1.5rem;
-}
-.areas-comuns .grupos {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 2rem 3rem;
-}
-.grupos .nota {
-  margin-bottom: 0.4rem;
-  font-size: 0.95rem;
-  font-weight: 700;
-  color: var(--sand-700);
 }
 
 /* =============== 04 Fachada =============== */
