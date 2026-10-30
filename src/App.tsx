@@ -5,7 +5,6 @@ import IdleGuard from './components/IdleGuard';
 import Nav from './components/Nav';
 import { preloadImagens } from './lib/preload';
 import { secaoAtual } from './lib/secao';
-import AreasComuns from './pages/AreasComuns';
 import Fachada from './pages/Fachada';
 import FichaTecnica from './pages/FichaTecnica';
 import Home from './pages/Home';
@@ -47,7 +46,6 @@ export default function App() {
             <Route path="/parceiro/:id" element={<Parceiro />} />
             <Route path="/localizacao" element={<Localizacao />} />
             <Route path="/ficha-tecnica" element={<FichaTecnica />} />
-            <Route path="/ficha-tecnica/areas-comuns" element={<AreasComuns />} />
             <Route path="/ficha-tecnica/:torre" element={<Torre />} />
             <Route path="/fachada" element={<Fachada />} />
             <Route path="/lazer" element={<Lazer />} />

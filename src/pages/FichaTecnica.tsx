@@ -17,24 +17,24 @@ export default function FichaTecnica() {
           </p>
         </div>
 
-        <button
-          type="button"
-          className="card comuns-card"
-          onClick={() => navigate('/ficha-tecnica/areas-comuns')}
-        >
-          <span className="eyebrow">ÁREAS COMUNS · LOJAS, VAGAS E LAZER</span>
-          <span className="comuns-itens">
-            {AREAS_COMUNS.destaques.map((d) => (
-              <span key={d.rotulo}>
-                <strong>{d.valor}</strong>
-                <small>{d.rotulo}</small>
-              </span>
+        <div className="card comuns-card">
+          <p className="eyebrow">{AREAS_COMUNS.titulo}</p>
+          <div className="comuns-grupos">
+            {AREAS_COMUNS.grupos.map((g) => (
+              <article key={g.titulo}>
+                <h2>{g.titulo}</h2>
+                {g.nota && <p className="nota">{g.nota}</p>}
+                {g.linhas.length > 0 && (
+                  <ul>
+                    {g.linhas.map((l) => (
+                      <li key={l}>{l}</li>
+                    ))}
+                  </ul>
+                )}
+              </article>
             ))}
-          </span>
-          <span className="comuns-cta">
-            VER ÁREAS COMUNS <Icon name="arrow-right" size="1em" />
-          </span>
-        </button>
+          </div>
+        </div>
 
         <ul className="stats">
           {FICHA.stats.map((s) => (

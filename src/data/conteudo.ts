@@ -172,13 +172,7 @@ export interface GrupoComum {
 
 /** Itens comuns as duas torres (Ficha Tecnica do Book). */
 export const AREAS_COMUNS = {
-  titulo: 'Lojas, vagas e lazer',
-  img: 'lazer/hall',
-  destaques: [
-    { valor: '328 m²', rotulo: 'loja comercial principal' },
-    { valor: '19', rotulo: 'vagas cobertas para autos' },
-    { valor: '24h', rotulo: 'portaria blindada' },
-  ],
+  titulo: 'ÁREAS COMUNS · LOJAS, VAGAS E LAZER',
   grupos: [
     {
       titulo: '1º Subsolo',
