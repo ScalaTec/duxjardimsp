@@ -21,7 +21,7 @@ export default function FichaTecnica() {
           <p className="eyebrow">{AREAS_COMUNS.titulo}</p>
           <div className="comuns-grupos">
             {AREAS_COMUNS.grupos.map((g) => (
-              <article key={g.titulo}>
+              <article key={g.titulo} className={g.linhas.length === 0 ? 'so-titulo' : undefined}>
                 <h2>{g.titulo}</h2>
                 {g.nota && <p className="nota">{g.nota}</p>}
                 {g.linhas.length > 0 && (
