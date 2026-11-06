@@ -4,6 +4,7 @@ import {
   MAQUETE_HANG_TIMEOUT_MS,
   MAQUETE_LOAD_TIMEOUT_MS,
   MAQUETE_PARTITION,
+  MAQUETE_REFRESH_MS,
   MAQUETE_STREAM_LOST_MS,
   MAQUETE_STREAM_POLL_MS,
   MAQUETE_URL,
@@ -82,14 +83,14 @@ export class MaqueteService {
   private loadTimer?: NodeJS.Timeout;
   private retryTimer?: NodeJS.Timeout;
   private hangTimer?: NodeJS.Timeout;
+  /** Renovacao periodica em segundo plano; so existe com a Maquete fora de vista. */
+  private refreshTimer?: NodeJS.Timeout;
   private netTimer?: NodeJS.Timeout;
   private streamTimer?: NodeJS.Timeout;
   /** Verificacao do stream em andamento (uma por vez, e so da view atual). */
   private probingView: WebContentsView | null = null;
   /** Desde quando o stream esta parado (0 = tocando). */
   private lostSince = 0;
-  /** O stream caiu com a Maquete fora de vista: recarrega so quando alguem abri-la. */
-  private stale = false;
 
   constructor(
     private readonly win: BrowserWindow,
@@ -123,7 +124,8 @@ export class MaqueteService {
   show(bounds: Bounds): MaqueteState {
     this.visible = true;
     this.bounds = bounds;
-    if (this.stale) this.prepare();
+    // Com alguem na pagina da Maquete nao ha renovacao em segundo plano.
+    this.cancelRefresh();
     this.place();
     if (this.state.status === 'ready' && this.view) {
       this.view.webContents.setAudioMuted(false);
@@ -143,6 +145,8 @@ export class MaqueteService {
     this.place();
     this.view?.webContents.setAudioMuted(true);
     if (!this.win.isDestroyed()) this.win.webContents.focus();
+    // Saiu da pagina da Maquete: volta a renova-la em segundo plano.
+    this.scheduleRefresh();
   }
 
   /** "Tentar novamente": recria a view do zero, sem reiniciar o app. */
@@ -178,9 +182,30 @@ export class MaqueteService {
   }
 
   private clearTimers(): void {
-    for (const t of [this.loadTimer, this.retryTimer, this.hangTimer]) if (t) clearTimeout(t);
-    this.loadTimer = this.retryTimer = this.hangTimer = undefined;
+    for (const t of [this.loadTimer, this.retryTimer, this.hangTimer, this.refreshTimer]) if (t) clearTimeout(t);
+    this.loadTimer = this.retryTimer = this.hangTimer = this.refreshTimer = undefined;
     this.stopStreamWatch();
+  }
+
+  private cancelRefresh(): void {
+    if (this.refreshTimer) clearTimeout(this.refreshTimer);
+    this.refreshTimer = undefined;
+  }
+
+  /**
+   * Fora da pagina da Maquete ela e recarregada a cada `MAQUETE_REFRESH_MS`, para o stream
+   * nunca ficar velho (nem derrubado por inatividade) quando alguem a abrir. Cada preparo
+   * reinicia a contagem. Sem view (offline/erro) quem cuida da nova tentativa e o `scheduleRetry`.
+   */
+  private scheduleRefresh(): void {
+    this.cancelRefresh();
+    if (this.disposed || this.visible || !this.view) return;
+    this.refreshTimer = setTimeout(() => {
+      this.refreshTimer = undefined;
+      if (this.disposed || this.visible || !this.view) return;
+      log('info', 'maquete: renovando em segundo plano');
+      this.prepare(false);
+    }, MAQUETE_REFRESH_MS);
   }
 
   private stopStreamWatch(): void {
@@ -255,7 +280,6 @@ export class MaqueteService {
     if (this.disposed || this.win.isDestroyed()) return;
     this.clearTimers();
     this.destroyView();
-    this.stale = false;
 
     this.netOnline = net.isOnline();
     if (!this.netOnline) {
@@ -292,6 +316,7 @@ export class MaqueteService {
     this.wire(view);
 
     this.loadTimer = setTimeout(() => this.fail(view, 'timeout', 'tempo limite ao carregar'), MAQUETE_LOAD_TIMEOUT_MS);
+    this.scheduleRefresh();
     log('info', `maquete: carregando ${MAQUETE_URL} (tentativa ${this.state.attempt})`);
     view.webContents.loadURL(MAQUETE_URL).catch(() => {
       /* did-fail-load trata o erro */
@@ -381,16 +406,14 @@ export class MaqueteService {
     }
   }
 
-  /** O stream caiu (inatividade no servidor, queda de rede): recarrega, sem pedir nada ao visitante. */
+  /**
+   * O stream caiu (inatividade no servidor, queda de rede): recarrega, sem pedir nada ao
+   * visitante. Com a Maquete fora de vista a recarga e em segundo plano (`prepare(false)`),
+   * para ela estar pronta quando alguem abri-la.
+   */
   private streamLost(): void {
     log('warn', 'maquete: stream encerrado');
-    if (this.visible) {
-      this.prepare();
-      return;
-    }
-    // Ninguem olhando: nao reabre o stream agora (custa tempo de renderizacao no servidor).
-    this.stopStreamWatch();
-    this.stale = true;
+    this.prepare(this.visible);
   }
 
   private ready(): void {

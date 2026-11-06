@@ -34,6 +34,7 @@ Intel Core i5 de 6a geracao, sem pressupor GPU dedicada.
 ## Maquete Virtual - comportamento obrigatorio
 
 - Preparar em segundo plano apos a Home estar disponivel.
+- Renovar (recarregar) em segundo plano enquanto o visitante estiver em qualquer pagina que nao seja a Maquete, e nunca renovar enquanto a pagina da Maquete estiver aberta.
 - Exibir imediatamente se ja estiver pronta.
 - Exibir loader DUX se ainda estiver carregando.
 - Exibir mensagem amigavel se estiver offline.

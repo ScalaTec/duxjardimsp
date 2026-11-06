@@ -13,6 +13,13 @@ export const MAQUETE_LOAD_TIMEOUT_MS = 60_000;
 export const MAQUETE_STREAM_POLL_MS = 2_000;
 export const MAQUETE_STREAM_LOST_MS = 6_000;
 
+/**
+ * Com a Maquete fora de vista (qualquer pagina, menos a 07), ela e recarregada a cada intervalo
+ * em segundo plano, para estar sempre pronta ao abrir. Menor que o tempo de inatividade em que
+ * o Streampixel derruba o stream. Nao roda enquanto a pagina da Maquete esta aberta.
+ */
+export const MAQUETE_REFRESH_MS = 90_000;
+
 /** Renderer travado (nao responde) por mais que isso: a view e recriada. */
 export const MAQUETE_HANG_TIMEOUT_MS = 20_000;
 

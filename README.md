@@ -114,10 +114,17 @@ viram um estado simples e a interface mostra o fallback DUX com
 preparacao e retomada sem reiniciar o app.
 
 A Maquete e um stream (Streampixel): so e dada como pronta quando o `<video>` esta tocando,
-com o mesmo prazo e fallback DUX de qualquer falha. Se o stream cair (o servidor encerra a
-sessao por inatividade), a Maquete e recarregada sozinha: na hora, se alguem a esta vendo; ao
-abri-la, se ninguem estava (nao mantem um stream aberto sem uso). O aviso "No activity
-detected" do Streampixel fica oculto.
+com o mesmo prazo e fallback DUX de qualquer falha. O aviso "No activity detected" do
+Streampixel fica oculto.
+
+**Renovacao em segundo plano:** enquanto o visitante esta em qualquer pagina que nao seja a
+07 (Maquete), a Maquete e recarregada a cada `MAQUETE_REFRESH_MS` (`electron/config.ts`,
+90 s) para estar sempre pronta e com o stream ativo ao abri-la. Se o stream cair (o servidor
+encerra a sessao por inatividade), ela tambem e recarregada na hora, sem esperar o intervalo.
+Com a pagina da Maquete aberta nao ha renovacao periodica (so a recuperacao de um stream
+derrubado). Cada renovacao mantem o consumo de uma sessao de streaming aberta enquanto o
+totem estiver em outras paginas: ajuste o intervalo conforme o custo/inatividade do servidor.
+Se o visitante abrir a Maquete durante uma renovacao, ve o loader DUX ate o stream tocar.
 
 ### Tela cheia
 
