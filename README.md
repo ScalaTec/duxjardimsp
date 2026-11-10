@@ -121,10 +121,15 @@ Streampixel fica oculto.
 07 (Maquete), a Maquete e recarregada a cada `MAQUETE_REFRESH_MS` (`electron/config.ts`,
 90 s) para estar sempre pronta e com o stream ativo ao abri-la. Se o stream cair (o servidor
 encerra a sessao por inatividade), ela tambem e recarregada na hora, sem esperar o intervalo.
-Com a pagina da Maquete aberta nao ha renovacao periodica (so a recuperacao de um stream
-derrubado). Cada renovacao mantem o consumo de uma sessao de streaming aberta enquanto o
-totem estiver em outras paginas: ajuste o intervalo conforme o custo/inatividade do servidor.
-Se o visitante abrir a Maquete durante uma renovacao, ve o loader DUX ate o stream tocar.
+Cada renovacao mantem o consumo de uma sessao de streaming aberta enquanto o totem estiver em
+outras paginas: ajuste o intervalo conforme o custo/inatividade do servidor. Se o visitante
+abrir a Maquete durante uma renovacao, ve o loader DUX ate o stream tocar.
+
+**Com a pagina da Maquete aberta a Maquete nunca e recarregada** (nem periodicamente, nem
+por stream caido): recarregar na frente do visitante o fazia perder a posicao e a experiencia.
+Se o stream cair com a pagina aberta (inatividade do Streampixel, queda de rede), o proprio
+player mostra "Connection lost / Reconnect" e o toque reconecta no lugar; ao sair da pagina, se
+o stream continuar morto, a Maquete e recarregada na hora em segundo plano.
 
 ### Tela cheia
 

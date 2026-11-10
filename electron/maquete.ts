@@ -91,6 +91,8 @@ export class MaqueteService {
   private probingView: WebContentsView | null = null;
   /** Desde quando o stream esta parado (0 = tocando). */
   private lostSince = 0;
+  /** O stream caiu com alguem na pagina da Maquete: so e recarregado depois que ele sair. */
+  private streamDead = false;
 
   constructor(
     private readonly win: BrowserWindow,
@@ -145,8 +147,10 @@ export class MaqueteService {
     this.place();
     this.view?.webContents.setAudioMuted(true);
     if (!this.win.isDestroyed()) this.win.webContents.focus();
-    // Saiu da pagina da Maquete: volta a renova-la em segundo plano.
-    this.scheduleRefresh();
+    // Saiu da pagina da Maquete: se o stream caiu enquanto ele estava la, recarrega ja (em segundo
+    // plano); senao, volta a renova-la periodicamente.
+    if (this.streamDead) this.prepare(false);
+    else this.scheduleRefresh();
   }
 
   /** "Tentar novamente": recria a view do zero, sem reiniciar o app. */
@@ -212,6 +216,7 @@ export class MaqueteService {
     if (this.streamTimer) clearInterval(this.streamTimer);
     this.streamTimer = undefined;
     this.lostSince = 0;
+    this.streamDead = false;
   }
 
   private destroyView(): void {
@@ -399,6 +404,7 @@ export class MaqueteService {
 
     if (playing) {
       this.lostSince = 0;
+      this.streamDead = false; // o proprio player reconectou
       if (this.state.status !== 'ready') this.ready();
     } else if (this.state.status === 'ready') {
       this.lostSince ||= Date.now();
@@ -407,13 +413,21 @@ export class MaqueteService {
   }
 
   /**
-   * O stream caiu (inatividade no servidor, queda de rede): recarrega, sem pedir nada ao
-   * visitante. Com a Maquete fora de vista a recarga e em segundo plano (`prepare(false)`),
-   * para ela estar pronta quando alguem abri-la.
+   * O stream caiu (inatividade do Streampixel, queda de rede).
+   * - Com alguem na pagina da Maquete: NAO recarrega (a pagina nunca pode piscar na frente do
+   *   visitante). O proprio player mostra "Reconectar"; se ele sair antes, `hide()` recarrega.
+   * - Fora de vista: recarrega na hora, em segundo plano, para estar pronta quando abrirem.
    */
   private streamLost(): void {
+    if (this.visible) {
+      if (!this.streamDead) {
+        this.streamDead = true;
+        log('warn', 'maquete: stream encerrado com a pagina aberta; recarrega ao sair');
+      }
+      return;
+    }
     log('warn', 'maquete: stream encerrado');
-    this.prepare(this.visible);
+    this.prepare(false);
   }
 
   private ready(): void {
