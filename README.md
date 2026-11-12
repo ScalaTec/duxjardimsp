@@ -103,7 +103,10 @@ docs/
 - Tudo e tocavel: navegacao inferior fixa, cartoes, abas, pinos nas implantacoes
   (lazer e plantas), lista de ambientes/unidades, pontos de referencia da localizacao,
   e visualizador em tela cheia com anterior/proximo, deslize, pinca, toque duplo e botoes de zoom.
-- Retorno automatico ao Inicio por inatividade.
+- Retorno automatico ao Inicio por inatividade. Na versao web a Maquete e um iframe de outra
+  origem, cujos toques nunca chegam ao app: enquanto o foco estiver dentro dela o prazo passa a
+  10 min (`TIMEOUT_IFRAME_MS` em `IdleGuard.tsx`), contados a partir do ultimo toque fora dela
+  (no Electron os toques chegam por `onActivity` e vale o prazo normal).
 
 ## Maquete Virtual
 
